@@ -13,6 +13,7 @@ var chatClient = azureOpenAIclient.GetChatClient("MyGPT4o");
 ChatCompletion completion = chatClient.CompleteChat(
     new List<ChatMessage>()
     {
+        new SystemChatMessage("如果沒有說 請 就拒絕回答問題"),
         new UserChatMessage("Hi, 你能夠幫助我嗎?"),
     });
 
