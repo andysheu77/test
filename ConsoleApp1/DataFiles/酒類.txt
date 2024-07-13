@@ -1,0 +1,30 @@
+品名, 英文品名, 解釋
+啤酒, （Beer）, 以大麥、啤酒花、酵母和水釀造的低酒精飲料。
+葡萄酒, （Wine）, 用葡萄發酵釀造的酒類，品種多樣。
+冰酒, （Icewine）, 冰凍葡萄釀造的甜型葡萄酒。
+貴腐酒, （Noble rot wines）, 受貴腐菌影響的甜型葡萄酒。
+加強葡萄酒, （Fortified Wine）, 加入蒸餾酒增強酒精含量的葡萄酒。
+雪莉酒, （Sherry）, 產自西班牙的加強葡萄酒。
+波特酒, （Port wine）, 葡萄牙產的甜型加強葡萄酒。
+氣泡酒, （Sparkling wine）, 含有碳酸氣泡的葡萄酒。
+香檳, （Champagne）, 法國香檳區特產的氣泡酒。
+黃酒, （Chinese rice wines）, 中國傳統發酵米酒，色黃味香。
+清酒, （Sake）, 日本釀造的米酒，酒精度適中。
+純米大吟釀, （Junmai Daiginjo）, 高級日本清酒，精米率50%以下。
+大吟釀, （Daiginjo）, 日本清酒，精米率50%以下。
+純米吟釀, （Junmai Ginjo）, 不添加酒精，精米率60%以下的清酒。
+吟釀, （Ginjo）, 精米率60%以下，風味獨特的清酒。
+純米酒, （Junmai）, 僅用米、水、麴釀造的清酒。
+特別純米酒, （Tokubetsu Junmai）, 精米率更高的純米酒。
+特別本釀造, （Tokubetsu Honjozo）, 含少量酒精添加的特級清酒。
+本釀造, （Honjozo）, 含有少量酒精添加的清酒。
+白酒, (Chinese spirits), 中國高酒精度蒸餾酒。
+清香白酒, （mild-flavored Chinese spirits）, 口感清香的中國白酒。
+醬香白酒,（Jiang-flavored Chinese spirits）, 味道濃郁的中國白酒。
+白蘭地, （Brandy）, 由葡萄蒸餾釀成的烈酒。
+威士忌, （Whisky）, 用穀物發酵蒸餾後陳年製成的烈酒。
+伏特加, （Vodka）, 以穀物或馬鈴薯製成的無色烈酒。
+龍舌蘭酒, (Tequila), 墨西哥釀造的蒸餾酒。
+朗姆酒, （Rum）, 用甘蔗糖蜜或甘蔗汁製成的烈酒。
+琴酒, （Gin）, 以杜松子為主要香料的烈酒。
+力嬌酒, （Liquor）, 加入草藥或香料的甜型烈酒。

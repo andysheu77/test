@@ -1,0 +1,31 @@
+品名, 英文品名, 解釋
+西湖龍井, (West Lake Longjing), 中國綠茶，因產於杭州西湖而得名。
+碧螺春, (Biluochun), 中國綠茶，形似螺狀，味清香濃郁。
+黃山毛峰, (Huangshan Maofeng), 中國綠茶，產於黃山，芽葉細嫩。
+安吉白茶, (Anji White Tea), 中國綠茶，茶湯清澈，味甘醇。
+太平猴魁, (Taiping Houkui), 中國綠茶，葉片扁平，香氣高雅。
+六安瓜片, (Liu'an Guapian), 中國綠茶，葉片完整，香氣濃郁。
+祁門紅茶, (Keemun Black Tea), 中國紅茶，香氣馥郁，口感濃厚。
+正山小種, (Lapsang Souchong), 中國紅茶，具有松煙香。
+滇紅, (Dianhong), 中國紅茶，色澤紅亮，味甜香濃。
+大吉嶺紅茶, (Darjeeling Tea), 印度紅茶，香氣獨特，有“茶中香檳”之稱。
+阿薩姆紅茶, (Assam Tea), 印度紅茶，味濃郁，色深紅。
+錫蘭紅茶, (Ceylon Tea), 斯里蘭卡紅茶，香氣濃郁，味道豐富。
+東方美人茶, (Oriental Beauty), 台灣烏龍茶，香氣高雅，味甘甜。
+大紅袍, (Dahongpao), 中國烏龍茶，岩茶之王，香氣濃郁。
+鐵觀音, (Tieguanyin), 中國烏龍茶，香氣馥郁，味甘醇。
+文山包種茶, (Wenshan Pouchong), 台灣烏龍茶，香氣高雅，味道清爽。
+金萱茶, (Jinxuan Tea), 台灣烏龍茶，奶香濃郁，口感滑順。
+阿里山高山茶, (Alishan High Mountain Tea), 台灣高山烏龍茶，香氣馥郁。
+凍頂烏龍, (Dong Ding Oolong), 台灣烏龍茶，香氣獨特，味道濃郁。
+普洱生茶, (Raw Pu-erh Tea), 中國普洱茶，未經過發酵，味清香。
+普洱熟茶, (Ripe Pu-erh Tea), 中國普洱茶，經過發酵，味濃厚。
+白毫銀針, (Silver Needle), 中國白茶，芽尖肥壯，香氣清幽。
+白牡丹, (White Peony), 中國白茶，葉白芽翠，味道甘醇。
+壽眉, (Shoumei), 中國白茶，香氣高雅，味道醇和。
+君山銀針, (Junshan Yinzhen), 中國黃茶，香氣清香，味甘甜。
+蒙頂黃芽, (Mengding Huangya), 中國黃茶，葉黃芽嫩，味甘醇。
+霍山黃芽, (Huoshan Huangya), 中國黃茶，湯色黃亮，味道醇厚。
+玫瑰花茶, (Rose Tea), 以玫瑰花瓣製成，香氣濃郁。
+菊花茶, (Chrysanthemum Tea), 以菊花製成，具有清熱功效。
+茉莉花茶, (Jasmine Tea), 以茉莉花窨製，香氣芬芳。
