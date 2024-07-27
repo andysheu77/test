@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Plugins.Core;
 using System.Diagnostics;
 using System.Text;
@@ -42,11 +43,27 @@ string prompt = @$"<message role=""system"">Instructions: 識別從 出發地 �
 
 var result = await kernel.InvokePromptAsync(prompt);
 */
+/* ImportPluginFromPromptDirectory
 kernel.ImportPluginFromType<ConversationSummaryPlugin>();
 
 var pluginsDirectory = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "MyPlugin", "MySkPrompt");
 
 var prompts = kernel.ImportPluginFromPromptDirectory(pluginsDirectory);
+*/
+
+string skprompt = @"現在你是一位童話故事創作高手，請根據下列主題
+""""""
+{{$story_subject}}
+"""""" 
+
+以及以下角色，使用繁體中文撰寫童話故事給 3 到 8 歲小朋友看，
+""""""
+{{$story_role}}
+"""""" ";
+var kernelFunction = kernel.CreateFunctionFromPrompt(skprompt, executionSettings:
+                                                                                                                                                        new OpenAIPromptExecutionSettings
+                                                                                                                                                        { MaxTokens = 2000, Temperature = 0.8 },
+                                                                                                                                  description: "根據主題及角色創造童話故事給小朋友聽");
 Console.WriteLine("bot: 你想聽什麼主題的故事呢? \n");
 Console.Write("you: ");
 string storySubject = Console.ReadLine();
@@ -55,7 +72,7 @@ Console.Write("\n");
 Console.WriteLine("bot: 故事的角色是什麼呢? \n");
 Console.Write("you: ");
 string storyRole = Console.ReadLine();
-var result = await kernel.InvokeAsync<string>(prompts["GetStory"],
+var result = await kernel.InvokeAsync<string>(kernelFunction,
     new() {
         { "story_subject", storySubject },
         { "story_role", storyRole },
