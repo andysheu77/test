@@ -112,7 +112,7 @@ else
     Console.WriteLine("無效的輸入。");
 }
 */
-#endregion
+/* ImportPluginFromObject
 var bingConnector = new BingConnector("c69f4a306f224dacaf9c2ed851421507");
 var plugin = new WebSearchEnginePlugin(bingConnector);
 var bingplugin = kernel.ImportPluginFromObject(plugin);
@@ -120,7 +120,18 @@ var bingplugin = kernel.ImportPluginFromObject(plugin);
  var result = await kernel.InvokeAsync<string>(bingplugin.Name, "GetSearchResults"
     , arguments: new KernelArguments() { ["query"] = "apple" });
 var pages = JsonSerializer.Deserialize<IEnumerable<WebPage>>(result).ToArray();
+*/
+#endregion
+var pluginsDirectory = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "QAPlugin", "AssistantResults");
+
+var prompts = kernel.ImportPluginFromPromptDirectory(pluginsDirectory);
 //Console.WriteLine(Console.OutputEncoding);
+var result = await kernel.InvokeAsync<string>(prompts["GetStory"],
+    new() {
+        { "story_subject", storySubject },
+        { "story_role", storyRole },
+{ "story_money",  storyMoney },    }
+);
 Console.OutputEncoding = Encoding.UTF8;
 Console.WriteLine(pages.FirstOrDefault().Snippet);
 //Debug.WriteLine(result);
