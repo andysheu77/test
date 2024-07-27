@@ -3,9 +3,13 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Plugins.Core;
+using Microsoft.SemanticKernel.Plugins.Web.Bing;
+using Microsoft.SemanticKernel.Plugins.Web;
 using SKConsoleApp.NavFuncs;
 using System.Diagnostics;
 using System.Text;
+using Google.Apis.CustomSearchAPI.v1.Data;
+using System.Text.Json;
 
 var builder = Kernel.CreateBuilder();
 
@@ -19,6 +23,8 @@ builder.Plugins.AddFromType<ConversationSummaryPlugin>();
 #pragma warning restore SKEXP0050 // 類型僅供評估之用，可能會在未來更新中變更或移除。抑制此診斷以繼續。
 
 var kernel = builder.Build();
+#region
+
 //var result = await kernel.InvokePromptAsync("請推薦含有雞蛋與起司的早餐清單給我");
 //var input = "請推薦含有雞蛋與起司的早餐清單給我";
 //var result = await kernel.InvokeAsync("ConversationSummaryPlugin", "GetConversationActionItems"
@@ -44,7 +50,7 @@ string prompt = @$"<message role=""system"">Instructions: 識別從 出發地 �
 
 var result = await kernel.InvokePromptAsync(prompt);
 */
-/* ImportPluginFromPromptDirectory */
+/* ImportPluginFromPromptDirectory 
 
 var pluginsDirectory = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "MyPlugin", "MySkPrompt");
 
@@ -66,6 +72,7 @@ var result = await kernel.InvokeAsync<string>(prompts["GetStory"],
         { "story_role", storyRole },
 { "story_money",  storyMoney },    }
 );
+*/
 /* CreateFunctionFromPrompt
 string skprompt = @"現在你是一位童話故事創作高手，請根據下列主題
 """"""
@@ -105,7 +112,15 @@ else
     Console.WriteLine("無效的輸入。");
 }
 */
+#endregion
+var bingConnector = new BingConnector("c69f4a306f224dacaf9c2ed851421507");
+var plugin = new WebSearchEnginePlugin(bingConnector);
+var bingplugin = kernel.ImportPluginFromObject(plugin);
+
+ var result = await kernel.InvokeAsync<string>(bingplugin.Name, "GetSearchResults"
+    , arguments: new KernelArguments() { ["query"] = "apple" });
+var pages = JsonSerializer.Deserialize<IEnumerable<WebPage>>(result).ToArray();
 //Console.WriteLine(Console.OutputEncoding);
 Console.OutputEncoding = Encoding.UTF8;
-Console.WriteLine(result);
+Console.WriteLine(pages.FirstOrDefault().Snippet);
 //Debug.WriteLine(result);

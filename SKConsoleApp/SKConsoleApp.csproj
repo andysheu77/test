@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.15.1" />
     <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.16.0-alpha" />
+    <PackageReference Include="Microsoft.SemanticKernel.Plugins.Web" Version="1.16.1-alpha" />
   </ItemGroup>
 
   <ItemGroup>
