@@ -3,6 +3,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Plugins.Core;
+using SKConsoleApp.NavFuncs;
 using System.Diagnostics;
 using System.Text;
 
@@ -43,14 +44,29 @@ string prompt = @$"<message role=""system"">Instructions: 識別從 出發地 �
 
 var result = await kernel.InvokePromptAsync(prompt);
 */
-/* ImportPluginFromPromptDirectory
-kernel.ImportPluginFromType<ConversationSummaryPlugin>();
+/* ImportPluginFromPromptDirectory */
 
 var pluginsDirectory = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "MyPlugin", "MySkPrompt");
 
 var prompts = kernel.ImportPluginFromPromptDirectory(pluginsDirectory);
-*/
+Console.WriteLine("bot: 你想聽什麼主題的故事呢? \n");
+Console.Write("you: ");
+string storySubject = Console.ReadLine();
 
+Console.Write("\n");
+Console.WriteLine("bot: 故事的角色是什麼呢? \n");
+Console.Write("you: ");
+string storyRole = Console.ReadLine();
+Console.WriteLine("bot: 故事中使用到的數字會是多少呢? \n");
+Console.Write("how much: ");
+string storyMoney = Console.ReadLine();
+var result = await kernel.InvokeAsync<string>(prompts["GetStory"],
+    new() {
+        { "story_subject", storySubject },
+        { "story_role", storyRole },
+{ "story_money",  storyMoney },    }
+);
+/* CreateFunctionFromPrompt
 string skprompt = @"現在你是一位童話故事創作高手，請根據下列主題
 """"""
 {{$story_subject}}
@@ -72,14 +88,23 @@ Console.Write("\n");
 Console.WriteLine("bot: 故事的角色是什麼呢? \n");
 Console.Write("you: ");
 string storyRole = Console.ReadLine();
-var result = await kernel.InvokeAsync<string>(kernelFunction,
-    new() {
-        { "story_subject", storySubject },
-        { "story_role", storyRole },
-    }
-);
+*/
+/* ImportPluginFromType
+KernelPlugin myPlugins = kernel.ImportPluginFromType<SKConsoleApp.NavFuncs.MyPlugins>();
+Console.Write("請輸入想轉換的阿拉伯數字：");
+var userinput = Console.ReadLine();
+string? result=string.Empty;
+if (long.TryParse(userinput, out long number))
+{
+    result = await kernel.InvokeAsync<string>(myPlugins.Name,"ConvertToChineseNumber"
+        , arguments: new KernelArguments() { ["number"] = number });
 
-Console.WriteLine(result);
+}
+else
+{
+    Console.WriteLine("無效的輸入。");
+}
+*/
 //Console.WriteLine(Console.OutputEncoding);
 Console.OutputEncoding = Encoding.UTF8;
 Console.WriteLine(result);
