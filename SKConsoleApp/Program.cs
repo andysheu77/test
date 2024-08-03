@@ -10,13 +10,19 @@ using System.Diagnostics;
 using System.Text;
 using Google.Apis.CustomSearchAPI.v1.Data;
 using System.Text.Json;
+using System.IO;
+using System.Reflection.PortableExecutable;
+using HtmlAgilityPack;
+using Fizzler.Systems.HtmlAgilityPack;
+using System.Net.Http;
+using System;
 
 var builder = Kernel.CreateBuilder();
 
 builder.AddAzureOpenAIChatCompletion(
-    "MyGPT4o",
-    "https://myaoaiclassdemo.openai.azure.com",
-    "daf7070cfbc04099a6317d393f3a9d2d",
+    "andy",
+    "https://andysheu.openai.azure.com/",
+    "e3330c0963cd46e0bb19c434fb4f45c0",
     "gpt-4o");
 #pragma warning disable SKEXP0050 // 類型僅供評估之用，可能會在未來更新中變更或移除。抑制此診斷以繼續。
 builder.Plugins.AddFromType<ConversationSummaryPlugin>();
@@ -112,26 +118,41 @@ else
     Console.WriteLine("無效的輸入。");
 }
 */
-/* ImportPluginFromObject
-var bingConnector = new BingConnector("c69f4a306f224dacaf9c2ed851421507");
-var plugin = new WebSearchEnginePlugin(bingConnector);
-var bingplugin = kernel.ImportPluginFromObject(plugin);
 
- var result = await kernel.InvokeAsync<string>(bingplugin.Name, "GetSearchResults"
-    , arguments: new KernelArguments() { ["query"] = "apple" });
-var pages = JsonSerializer.Deserialize<IEnumerable<WebPage>>(result).ToArray();
-*/
 #endregion
-var pluginsDirectory = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "QAPlugin", "AssistantResults");
+var pluginsDirectory = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "QAPlugins");
 
 var prompts = kernel.ImportPluginFromPromptDirectory(pluginsDirectory);
 //Console.WriteLine(Console.OutputEncoding);
-var result = await kernel.InvokeAsync<string>(prompts["GetStory"],
+#pragma warning disable SKEXP0050 // 類型僅供評估之用，可能會在未來更新中變更或移除。抑制此診斷以繼續。
+var bingConnector = new BingConnector("c69f4a306f224dacaf9c2ed851421507");
+var plugin = new WebSearchEnginePlugin(bingConnector);
+#pragma warning restore SKEXP0050 // 類型僅供評估之用，可能會在未來更新中變更或移除。抑制此診斷以繼續。
+var bingplugin = kernel.ImportPluginFromObject(plugin);
+
+var result = await kernel.InvokeAsync<string>(bingplugin.Name, "GetSearchResults"
+   , arguments: new KernelArguments() { ["query"] = "https://tw.news.yahoo.com/" });
+//var pages = JsonSerializer.Deserialize<IEnumerable<WebPage>>(result).ToArray();
+HttpClient client=new HttpClient();
+HttpResponseMessage response = await client.GetAsync("https://tw.news.yahoo.com");
+
+string htmlContent = await response.Content.ReadAsStringAsync();
+HtmlDocument htmlDocument = new HtmlDocument();
+htmlDocument.LoadHtml(htmlContent);
+
+// Use Fizzler to select the stock element using a CSS selector
+var stockElement = htmlDocument.DocumentNode.QuerySelectorAll("div.Cf > div > h3 , p");
+
+var stockAmount = string.Concat( stockElement.Where(a=>a.Name=="h3").Select(a => 
+    $"標題 = {a.InnerText},來源 = {a.FirstChild.Attributes["href"].Value},內容 = a.NextSibling.InnerText")
+    );
+//#Col1-10-NewsCollectionStream-0-Stream > ul > li:nth-child(4) > div > div
+result = await kernel.InvokeAsync<string>(prompts["AssistantResults"],
     new() {
-        { "story_subject", storySubject },
-        { "story_role", storyRole },
-{ "story_money",  storyMoney },    }
+        { "ans_result",  stockAmount},
+        { "query_input", "台灣選手奧運" } 
+    }
 );
 Console.OutputEncoding = Encoding.UTF8;
-Console.WriteLine(pages.FirstOrDefault().Snippet);
+Console.WriteLine(result);
 //Debug.WriteLine(result);
